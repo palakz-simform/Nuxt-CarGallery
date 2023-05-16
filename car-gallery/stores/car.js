@@ -1,7 +1,10 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import nuxtStorage from 'nuxt-storage';
-axios.defaults.headers.common['Authorization'] = 'Bearer ' + nuxtStorage.localStorage.getData('token')
+if (process.client) {
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
+}
+
 export const useCarStore = defineStore('car', {
     state: () => {
         return {

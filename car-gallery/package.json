@@ -23,7 +23,8 @@
     "axios": "^1.4.0",
     "gsap": "^3.11.5",
     "nuxt-storage": "^1.2.2",
-    "pinia": "^2.0.36"
+    "pinia": "^2.0.36",
+    "vue-router": "^4.2.0"
   },
   "overrides": {
     "vue": "latest"

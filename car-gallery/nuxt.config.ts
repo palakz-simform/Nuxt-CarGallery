@@ -8,8 +8,8 @@ const config: NuxtConfig = {
       ],
     plugins: [
       // Other plugins...
-      { src: '~/plugins/gsap.js', ssr: false }
-    ],
+      { src: '~/plugins/gsap.js', ssr: false },
+       ],
   
     // Other Nuxt.js configuration...
   }

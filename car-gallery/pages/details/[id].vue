@@ -25,18 +25,19 @@
 </template>
 
 <script setup>
-
+definePageMeta({
+    middleware: ['auth']
+})
 import { useCarStore } from '../../stores/car.js'
 // import { useRouter, useRoute } from 'vue-router'
 import { onMounted } from 'vue'
 const carStore = useCarStore()
-const router = useRouter()
 const route = useRoute()
 onMounted(() => {
     carStore.getCarDetail(route.params.id)
 })
 const home = () => {
-    router.push('/')
+    navigateTo('/')
 }
 </script>
 

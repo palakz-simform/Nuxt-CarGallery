@@ -8,12 +8,45 @@ const handleError = () => {
 };
 </script>
 
+
 <template>
-    <div class="flex h-screen justify-center items-center flex-col">
-        <h1 class="text-9xl">{{ error.statusCode }}</h1>
-        <p class="mt-7 text-4xl">{{ error.message }}</p>
-        <button @click="handleError" class="rounded mt-7 text-2xl bg-blue-400 px-7 py-4 text-white">
-            Go Back
-        </button>
+    <div class="error-page">
+        <NavBar />
+        <div class="not-found">
+            <h1>{{ error.statusCode }}</h1>
+            <h1>{{ error.message }}</h1>
+            <p>Please <NuxtLink :to="'/'" @click="handleError"> <span>click</span> </NuxtLink> here to access the home page
+            </p>
+        </div>
+        <CarFooter />
     </div>
 </template>
+
+
+
+
+<style scoped>
+.error-page {
+    background-color: black;
+}
+
+.not-found {
+    text-align: center;
+    margin-top: 150px;
+}
+
+h1 {
+    color: rgb(35, 177, 172);
+}
+
+p {
+    font-size: 20px;
+    color: white;
+}
+
+span {
+    color: rgb(35, 177, 172);
+    text-decoration: underline;
+    cursor: pointer;
+}
+</style>

@@ -29,17 +29,19 @@
 </template>
 
 <script setup>
-useHead({
-  script:[
-    {src:"https://kit.fontawesome.com/0c8946a054.js"}
-  ]
 
+definePageMeta({
+    middleware: ['auth']
+})
+useHead({
+    script: [
+        { src: "https://kit.fontawesome.com/0c8946a054.js" }
+    ]
 });
 
 import { useCarStore } from "../stores/car";
 import gsap from 'gsap'
 import { onMounted } from "vue";
-
 const carStore = useCarStore()
 
 onMounted(() => {
@@ -71,6 +73,7 @@ function leave(el, done) {
         onComplete: done
     })
 }
+
 </script>
 
 <style scoped>

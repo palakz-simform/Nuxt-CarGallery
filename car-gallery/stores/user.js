@@ -1,18 +1,29 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
-import nuxtStorage from 'nuxt-storage';
 export const useUserStore = defineStore('user', {
     state: () => ({
-        name: "",
-        email: "",
-        role: "",
-        password: "",
-        age: "",
-        dob: "",
-        gender: "",
-        login: nuxtStorage.localStorage.getData('loggedIn')
+        name: '',
+        email: '',
+        role: '',
+        password: '',
+        age: '',
+        dob: '',
+        gender: '',
+        login: null
     }),
-
+    getters: {
+        isLoggedIn(state) {
+            if (state.login === null) {
+                // If the login state is not yet initialized, check the localStorage
+                if (process.client) {
+                    const loggedIn = localStorage.getItem('loggedIn');
+                    return loggedIn === 'true';
+                }
+            }
+            // Return the current login state
+            return state.login === 'true';
+        }
+    },
     actions: {
         async logInUser(user) {
             try {
@@ -38,14 +49,19 @@ export const useUserStore = defineStore('user', {
                                 email: "eve.holt@reqres.in",
                                 password: "cityslicka"
                             })
-                            nuxtStorage.localStorage.setData('token', res.data.token)
-                            nuxtStorage.localStorage.setData('loggedIn', true)
+                            if (process.client) {
+                                localStorage.setItem('token', res.data.token)
+                                localStorage.setItem('loggedIn', true)
+                            }
+
                         }
                         catch (err) {
-                            nuxtStorage.localStorage.setData('token', `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`)
-                            nuxtStorage.localStorage.setData('loggedIn', true)
+                            if (process.client) {
+                                localStorage.setItem('token', `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`)
+                                localStorage.setItem('loggedIn', true)
+                            }
                         }
-                        router.push('/')
+                        navigateTo('/')
                     }
                     else {
                         alert("Invalid Password!! Please try again")
@@ -53,6 +69,7 @@ export const useUserStore = defineStore('user', {
                 }
             }
             catch (err) {
+                console.log(err)
                 alert("Error occured!! Please try again")
             }
         },
@@ -69,22 +86,21 @@ export const useUserStore = defineStore('user', {
                 })
                 if (res.status === 201) {
                     alert(' User added Successfully: \n\nName: ' + data.name + '\nEmail: ' + data.email + '\nRole :' + data.role + '\nGender:' + data.gender + '\nAge:' + data.age + '\nDate of Birth:' + data.dob)
-                    router.push({
-                        name: 'login'
-                    })
+                    navigateTo('/login')
                 }
             }
             catch (error) {
+                console.log(error)
                 alert("Error occured! Please try again")
             }
         },
         logout() {
             if (confirm("Do you really want to log out ?") == true) {
-                nuxtStorage.localStorage.setData('token', "")
-                nuxtStorage.localStorage.setData("loggedIn", false)
-                router.push({
-                    name: 'login'
-                })
+                if (process.client) {
+                    localStorage.setItem('token', "")
+                    localStorage.setItem("loggedIn", false)
+                }
+                navigateTo('/login')
                 this.login = "false"
                 setTimeout(() => {
                     alert("Logged Out Successfully")
