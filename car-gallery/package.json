@@ -9,7 +9,23 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@nuxt/types": "^2.16.3",
     "@types/node": "^18",
-    "nuxt": "^3.4.3"
+    "nuxt": "^3.4.3",
+    "nuxt-gsap-module": "^2.0.0"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-brands-svg-icons": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/vue-fontawesome": "^3.0.3",
+    "@pinia/nuxt": "^0.4.10",
+    "axios": "^1.4.0",
+    "gsap": "^3.11.5",
+    "nuxt-storage": "^1.2.2",
+    "pinia": "^2.0.36"
+  },
+  "overrides": {
+    "vue": "latest"
   }
 }
