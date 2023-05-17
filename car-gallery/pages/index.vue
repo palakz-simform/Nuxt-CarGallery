@@ -17,18 +17,23 @@
 
         <!-- gallery-card.vue component -->
         <div class="car-content">
-            <transition-group class="car-card" name="car-card" tag="div" @before-enter="beforeEnter" @enter="enter"
-                @before-leave="beforeLeave" @leave="leave" appear>
+            <div class="car-card">
                 <div v-for="(item, index) in carStore.carCardInfo" :key="item.id" :data-index="index">
-                    <GalleryCard :id="item.id" :name="item.name" :image="item.image" :description="item.details"
-                        :price="item.price" />
+                    <transition name="car-card" mode="out-in" appear>
+                        <GalleryCard :id="item.id" :name="item.name" :image="item.image" :description="item.details"
+                            :price="item.price" />
+                    </transition>
                 </div>
-            </transition-group>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup>
+import { useCarStore } from "../stores/car";
+import gsap from 'gsap'
+import { onMounted } from "vue";
+const carStore = useCarStore()
 
 definePageMeta({
     middleware: ['auth']
@@ -38,45 +43,31 @@ useHead({
         { src: "https://kit.fontawesome.com/0c8946a054.js" }
     ]
 });
-
-import { useCarStore } from "../stores/car";
-import gsap from 'gsap'
-import { onMounted } from "vue";
-const carStore = useCarStore()
-
 onMounted(() => {
     carStore.getData()
 })
 
-function beforeEnter(el) {
-    el.style.opacity = 0;
-    el.style.transform = 'translateY(100px)'
-}
-function enter(el, done) {
-    gsap.to(el, {
-        opacity: 1,
-        y: 0,
-        duration: 0.5,
-        onComplete: done,
-        delay: el.dataset.index * 0.1
-    })
-}
-function beforeLeave(el) {
-    el.style.opacity = 1
-}
-function leave(el, done) {
-    gsap.to(el, {
-        opacity: 0,
-        x: -250,
-        scaleY: 0.01,
-        duration: 0.3,
-        onComplete: done
-    })
-}
-
 </script>
 
 <style scoped>
+.car-card-enter-from {
+    opacity: 0;
+    transform: translateY(100px)
+}
+
+.car-card-enter-active {
+    transition: all 0.3s ease-out;
+}
+
+.car-card-leave-to {
+    opacity: 0;
+    transform: translatey(-100px);
+}
+
+.car-card-leave-active {
+    transition: all 0.3s ease-in;
+}
+
 .home {
     margin-bottom: 190px;
 }

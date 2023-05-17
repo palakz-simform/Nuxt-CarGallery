@@ -4,12 +4,12 @@
             <div>
                 <NuxtLink to="/" class="nav-heading">
                     <img src="../public/car-logo.png" alt="logo" />
-                    <h1 class="logo-name">{{ userStore.isLoggedIn }}</h1>
+                    <h1 class="logo-name">Car Gallery</h1>
                 </NuxtLink>
             </div>
             <div>
-                <NuxtLink class="link" to="/">Home</NuxtLink>
                 <span v-if="userStore.isLoggedIn == true">
+                    <NuxtLink class="link" to="/">Home</NuxtLink>
                     <a class="link" @click="userStore.logout">Logout</a>
                 </span>
                 <template v-else>

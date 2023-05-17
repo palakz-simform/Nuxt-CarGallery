@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import { RouterLink } from "vue-router";
+
 import { useCarStore } from "../stores/car";
 const carStore = useCarStore()
 const props = defineProps([

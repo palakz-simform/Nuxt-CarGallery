@@ -13,8 +13,8 @@ const handleError = () => {
     <div class="error-page">
         <NavBar />
         <div class="not-found">
-            <h1>{{ error.statusCode }}</h1>
-            <h1>{{ error.message }}</h1>
+            <h1 class="error-code">{{ error.statusCode ? error.statusCode : '' }}</h1>
+            <h1>{{ error.message ? error.message : 'Unknown error occured' }}</h1>
             <p>Please <NuxtLink :to="'/'" @click="handleError"> <span>click</span> </NuxtLink> here to access the home page
             </p>
         </div>
@@ -26,6 +26,10 @@ const handleError = () => {
 
 
 <style scoped>
+h1.error-code {
+    font-size: 80px;
+}
+
 .error-page {
     background-color: black;
 }

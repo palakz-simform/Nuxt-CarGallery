@@ -26,7 +26,8 @@
 
 <script setup>
 definePageMeta({
-    middleware: ['auth']
+    middleware: ['auth', 'info'],
+
 })
 import { useCarStore } from '../../stores/car.js'
 // import { useRouter, useRoute } from 'vue-router'
