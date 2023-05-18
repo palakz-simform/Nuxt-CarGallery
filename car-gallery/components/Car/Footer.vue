@@ -149,3 +149,11 @@ i:hover {
     }
 }
 </style>
+
+<script>
+useHead({
+    script: [
+        { src: "https://kit.fontawesome.com/0c8946a054.js" }
+    ]
+});
+</script>

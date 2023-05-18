@@ -18,22 +18,30 @@
         <!-- gallery-card.vue component -->
         <div class="car-content">
             <div class="car-card">
-                <div v-for="(item, index) in carStore.carCardInfo" :key="item.id" :data-index="index">
-                    <transition name="car-card" mode="out-in" appear>
+                <transition-group class="car-card" name="car-card" @before-enter="beforeEnter" @enter="enter"
+                    @before-leave="beforeLeave" @leave="leave" appear>
+                    <div v-for="(item, index) in carStore.carCardInfo" :key="item.id" :data-index="index">
                         <GalleryCard :id="item.id" :name="item.name" :image="item.image" :description="item.details"
                             :price="item.price" />
-                    </transition>
-                </div>
+                    </div>
+                </transition-group>
             </div>
+
         </div>
     </div>
 </template>
+
+
 
 <script setup>
 import { useCarStore } from "../stores/car";
 import gsap from 'gsap'
 import { onMounted } from "vue";
 const carStore = useCarStore()
+
+useHead({
+    title: 'Car Gallery',
+})
 
 definePageMeta({
     middleware: ['auth']
@@ -47,16 +55,45 @@ onMounted(() => {
     carStore.getData()
 })
 
-</script>
+function beforeEnter(el) {
+    el.style.opacity = 0;
+    el.style.transform = 'translateY(100px)'
+}
+function enter(el, done) {
+    gsap.to(el, {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        onComplete: done,
+        delay: el.dataset.index * 0.1
+    })
+}
+function beforeLeave(el) {
+    el.style.opacity = 1
+}
+function leave(el, done) {
+    gsap.to(el, {
+        opacity: 0,
+        x: -250,
+        scaleY: 0.01,
+        duration: 0.3,
+        onComplete: done
+    })
+}
 
+</script>
+<!-- <script>
+export default {
+    created() {
+        this.aaa()
+    },
+
+}
+</script > -->
 <style scoped>
 .car-card-enter-from {
     opacity: 0;
     transform: translateY(100px)
-}
-
-.car-card-enter-active {
-    transition: all 0.3s ease-out;
 }
 
 .car-card-leave-to {
@@ -85,7 +122,7 @@ onMounted(() => {
 
 .add-car-button {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     padding: 20px;
     margin-right: 30px;
 

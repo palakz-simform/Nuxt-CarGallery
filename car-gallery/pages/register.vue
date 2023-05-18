@@ -74,7 +74,7 @@
                     <!-- DOB -->
                     <div class="row">
                         <label>Date of Birth:</label>
-                        <input type="date" v-model="dob" ref="dob_ref" :max="formattedDate()" min="1923-12-31"
+                        <input type="date" v-model="dob" ref="dob_ref" :max="formattedDate" min="1923-12-31"
                             @input="checkDOB" onkeydown="return false;">
                         <div v-if="error_msg_dob" class="error">{{ error_msg_dob }}</div>
                     </div>
@@ -101,6 +101,8 @@ const { name, error_msg_name, name_ref, checkName,
     age, error_msg_age, age_ref, checkAge,
     dob, error_msg_dob, dob_ref, checkDOB } = useValidation()
 
+const { formattedDate } = useFormattedDate()
+
 function submit() {
     checkName(), checkEmail(), checkPassword(), checkConfirmPassword(), checkRole(), checkGender(), checkAge(), checkDOB()
     if (checkName() && checkEmail() && checkPassword() && checkConfirmPassword() && checkRole() && checkGender() && checkAge() && checkDOB()) {
@@ -117,14 +119,7 @@ function submit() {
     }
 }
 
-function formattedDate() {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = (today.getMonth() + 1).toString().padStart(2, '0'); // add 1 to adjust for 0-based indexing
-    const day = today.getDate().toString().padStart(2, '0');
-    const formattedDate = `${year}-${month}-${day}`;
-    return formattedDate
-}
+
 </script>
 
 <style scoped src="../public/style.css"></style>

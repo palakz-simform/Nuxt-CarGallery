@@ -25,21 +25,45 @@
 </template>
 
 <script setup>
+import { useCarStore } from '../../stores/car'
+const carStore = useCarStore()
+const route = useRoute();
+
+useHead({
+    title: `Car Detail ${route.params.id}`
+})
 definePageMeta({
-    middleware: ['auth', 'info'],
+    middleware: ['auth'],
+})
+import { onMounted } from 'vue'
+
+onMounted(async () => {
+    carStore.getCarDetail(route.params.id)
+    const { id } = useRoute().params
+    const car_uri = `https://testapi.io/api/dartya/resource/cardata/${id}`
+    const { data: car } = await useFetch(car_uri, { key: id })
+    const cars_uri = `https://testapi.io/api/dartya/resource/cardata`
+    const { data: cars } = await useFetch(cars_uri)
+    const present = cars.value.data.find(data => data.id == route.params.id)
+    if (!present) {
+        console.log("no data")
+        throw createError({
+            statusCode: 404,
+            statusMessage: `Car Not Found with id ${route.params.id}`,
+            fatal: true
+        })
+    }
+
 
 })
-import { useCarStore } from '../../stores/car.js'
-// import { useRouter, useRoute } from 'vue-router'
-import { onMounted } from 'vue'
-const carStore = useCarStore()
-const route = useRoute()
-onMounted(() => {
-    carStore.getCarDetail(route.params.id)
-})
+
+if (!carStore.carDetail) {
+    console.log("No data")
+}
 const home = () => {
     navigateTo('/')
 }
+
 </script>
 
 <style scoped>

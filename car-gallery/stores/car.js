@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
-import nuxtStorage from 'nuxt-storage';
 if (process.client) {
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
 }
@@ -105,7 +104,12 @@ export const useCarStore = defineStore('car', {
         getCarDetail(id) {
             axios.get(`https://testapi.io/api/dartya/resource/cardata/${id}`).then((response) => {
                 this.carDetail = response.data
+            }).catch(() => {
+                // navigateTo('/error')
+                // const { error } = getContext(); // Get Nuxt context using getContext
+                // throw error(createError(400, 'Item cannot be empty.'));
             })
         },
+
     }
 })

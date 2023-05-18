@@ -35,8 +35,8 @@ const { email, error_msg_email, email_ref, checkEmail,
 
 
 function login() {
-    checkEmail(),
-        checkPassword()
+    checkEmail()
+    checkPassword()
     if (checkEmail() && checkPassword()) {
         const data = getUserData()
         userStore.logInUser(data)
@@ -48,7 +48,6 @@ function getUserData() {
         password: password.value
     }
 }
-
 </script>
 
 <style scoped src="../public/style.css"></style>

@@ -13,8 +13,8 @@ const handleError = () => {
     <div class="error-page">
         <NavBar />
         <div class="not-found">
-            <h1 class="error-code">{{ error.statusCode ? error.statusCode : '' }}</h1>
-            <h1>{{ error.message ? error.message : 'Unknown error occured' }}</h1>
+            <h1 class="error-code">{{ error ? error.statusCode : '' }}</h1>
+            <h1>{{ error ? error.message : 'Unknown error occured' }}</h1>
             <p>Please <NuxtLink :to="'/'" @click="handleError"> <span>click</span> </NuxtLink> here to access the home page
             </p>
         </div>
