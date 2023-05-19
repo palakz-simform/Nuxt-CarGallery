@@ -51,9 +51,14 @@ useHead({
         { src: "https://kit.fontawesome.com/0c8946a054.js" }
     ]
 });
-onMounted(() => {
+onMounted(async () => {
     carStore.getData()
+
 })
+
+// const cars_info = ref([])
+// const data = await useFetchCars()
+// cars_info.value = data.value.data
 
 function beforeEnter(el) {
     el.style.opacity = 0;

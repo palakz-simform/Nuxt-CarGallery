@@ -122,14 +122,31 @@ function checkDescription() {
     return true
 }
 
-function submit() {
+async function submit() {
     // Form validation  
     checkName(), checkImage(), checkDescription(), checkPrice()
     if (checkName() && checkImage() && checkDescription() && checkPrice()) {
         //  Execute if Add Car
         if (carStore.addForm == true) {
             alertData()
-            carStore.setdata(form)
+            try {
+                const res = await useFetch("/api/car/add", {
+                    method: "post",
+                    body: {
+                        name: form.name,
+                        image: form.image,
+                        details: form.description,
+                        price: form.price
+                    }
+                })
+                carStore.getData()
+                carStore.showModal = false
+            }
+            catch (err) {
+                console.log(err)
+            }
+            // Below code is using store
+            // carStore.setdata(form)
         }
         // Execute if Edit Car
         else if (carStore.editForm == true) {

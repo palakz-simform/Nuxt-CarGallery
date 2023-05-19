@@ -1,7 +1,13 @@
 import { defineStore } from 'pinia'
+// import axios from '~/plugins/axios'
 import axios from 'axios'
+
+// useNuxtApp().$axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
+let headers = ""
 if (process.client) {
-    axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
+    headers = {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+    }
 }
 
 export const useCarStore = defineStore('car', {
@@ -27,29 +33,28 @@ export const useCarStore = defineStore('car', {
     actions: {
         // fetching data
         async getData() {
-            // const { data } = await fetch('/api/car')
-            // console.log(data)
+            // const data = await useFetchCars()
+            // console.log(data.value.data)
             // this.cars_info = data.value.data
-            axios.get("https://testapi.io/api/dartya/resource/cardata", {
-            }).then((response) => {
-                console.log(response.data.data)
-                this.cars_info = response.data.data
-            })
+            useNuxtApp().$axios.get("https://testapi.io/api/dartya/resource/cardata",
+                { headers }).then((response) => {
+                    this.cars_info = response.data.data
+                })
         },
         addCar() {
-            this.showModal = true,
-                this.title = 'Add Car',
-                this.addForm = true
+            this.showModal = true
+            this.title = 'Add Car'
+            this.addForm = true
         },
         // Add Car data
         setdata(formdata) {
             this.showModal = false;
-            axios.post('https://testapi.io/api/dartya/resource/cardata/', {
+            useNuxtApp().$axios.post('https://testapi.io/api/dartya/resource/cardata/', {
                 name: formdata.name,
                 image: formdata.image,
                 details: formdata.description,
                 price: formdata.price
-            }).then((res) => {
+            }, { headers }).then((res) => {
                 if (res.status === 201) {
                     this.getData()
                 } else {
@@ -72,12 +77,12 @@ export const useCarStore = defineStore('car', {
         //Edit Car Data
         editCarData(data) {
             this.showModal = false;
-            axios.put('https://testapi.io/api/dartya/resource/cardata/' + data.id, {
+            useNuxtApp().$axios.put('https://testapi.io/api/dartya/resource/cardata/' + data.id, {
                 name: data.name,
                 image: data.image,
                 details: data.description,
                 price: data.price
-            }).then((res) => {
+            }, { headers }).then((res) => {
                 if (res.status === 200) {
                     this.getData()
                 } else {
@@ -93,7 +98,7 @@ export const useCarStore = defineStore('car', {
         //Delete Car
         deleteCar(data) {
             if (confirm("Do you want to delete this car data ?") == true) {
-                axios.delete('https://testapi.io/api/dartya/resource/cardata/' + data.id).then((res) => {
+                useNuxtApp().$axios.delete('https://testapi.io/api/dartya/resource/cardata/' + data.id, { headers }).then((res) => {
                     if (res.status === 204) {
                         this.getData()
                         alert("Car : " + data.name + " deleted successuflly!")
@@ -106,8 +111,9 @@ export const useCarStore = defineStore('car', {
             }
         },
         getCarDetail(id) {
-            axios.get(`https://testapi.io/api/dartya/resource/cardata/${id}`).then((response) => {
+            useNuxtApp().$axios.get(`https://testapi.io/api/dartya/resource/cardata/${id}`, { headers }).then((response) => {
                 this.carDetail = response.data
+                console.log("in car")
             }).catch(() => {
                 // navigateTo('/error')
                 // const { error } = getContext(); // Get Nuxt context using getContext

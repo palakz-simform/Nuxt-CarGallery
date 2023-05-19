@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="back">
-            <button @click.prevent="home()"><i class="fa-solid fa-arrow-left-long"></i>Back</button>
+            <button @click.prevent="navigateTo('/')"><i class="fa-solid fa-arrow-left-long"></i>Back</button>
         </div>
         <div class="car-detail">
             <div class="image">
@@ -39,11 +39,11 @@ import { onMounted } from 'vue'
 
 onMounted(async () => {
     carStore.getCarDetail(route.params.id)
+    carStore.getData()
     const { id } = useRoute().params
     const car_uri = `https://testapi.io/api/dartya/resource/cardata/${id}`
     const { data: car } = await useFetch(car_uri, { key: id })
     const cars = await useFetchCars()
-
     console.log(cars)
     const carDetailData = cars.value.data.find(data => data.id == route.params.id)
     if (!carDetailData) {
@@ -53,14 +53,10 @@ onMounted(async () => {
             fatal: true
         })
     }
+    // const cars = carStore.cars_info
+    // console.log("aaa", cars)
 })
 
-if (!carStore.carDetail) {
-    console.log("No data")
-}
-const home = () => {
-    navigateTo('/')
-}
 
 </script>
 
@@ -108,11 +104,13 @@ i {
 
 .image {
     max-width: 500px;
+    max-height: 480px;
     align-self: center;
 }
 
 img {
     width: 500px;
+    max-height: 480px;
     margin-left: 20px;
 }
 
@@ -194,10 +192,12 @@ img {
 
         .image {
             padding-top: 20px;
+            max-height: 300px;
         }
 
         img {
             margin: 0;
+            max-height: 300px;
         }
 
         .title {

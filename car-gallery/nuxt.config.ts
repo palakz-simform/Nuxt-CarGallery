@@ -11,7 +11,9 @@ const config: NuxtConfig = {
       ],
     plugins: [
       // Other plugins...
-      { src: '~/plugins/gsap.js', ssr: false },
+      // { src: '~/plugins/gsap.js', ssr: false },
+      // { src:   '~/plugins/axios-plugin.js',},
+    
       // { src: '~/plugins/globalMixins.js', mode: 'client' }
        ],
     // Other Nuxt.js configuration...

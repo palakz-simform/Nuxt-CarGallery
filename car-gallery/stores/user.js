@@ -69,7 +69,6 @@ export const useUserStore = defineStore('user', {
                 }
             }
             catch (err) {
-                console.log(err)
                 alert("Error occured!! Please try again")
             }
         },
@@ -90,7 +89,6 @@ export const useUserStore = defineStore('user', {
                 }
             }
             catch (error) {
-                console.log(error)
                 alert("Error occured! Please try again")
             }
         },

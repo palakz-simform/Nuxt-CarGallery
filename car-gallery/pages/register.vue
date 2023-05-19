@@ -103,7 +103,7 @@ const { name, error_msg_name, name_ref, checkName,
 
 const { formattedDate } = useFormattedDate()
 
-function submit() {
+async function submit() {
     checkName(), checkEmail(), checkPassword(), checkConfirmPassword(), checkRole(), checkGender(), checkAge(), checkDOB()
     if (checkName() && checkEmail() && checkPassword() && checkConfirmPassword() && checkRole() && checkGender() && checkAge() && checkDOB()) {
         const data = {
@@ -115,7 +115,19 @@ function submit() {
             dob: dob.value,
             gender: gender.value
         }
-        userStore.registerUser(data)
+        try {
+            const res = await useFetch("/api/user/add", {
+                method: "post",
+                body: data
+            })
+            alert(' User added Successfully: \n\nName: ' + data.name + '\nEmail: ' + data.email + '\nRole :' + data.role + '\nGender:' + data.gender + '\nAge:' + data.age + '\nDate of Birth:' + data.dob)
+            navigateTo('/login')
+        }
+        catch (err) {
+            console.log(err)
+        }
+        // With using store
+        // userStore.registerUser(data)
     }
 }
 
