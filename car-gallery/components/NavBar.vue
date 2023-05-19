@@ -3,7 +3,7 @@
         <div class="nav">
             <div>
                 <NuxtLink to="/" class="nav-heading">
-                    <img src="../public/car-logo.png" alt="logo" />
+                    <img src="/car-logo.png" alt="logo" />
                     <h1 class="logo-name">Car Gallery</h1>
                 </NuxtLink>
             </div>

@@ -42,19 +42,17 @@ onMounted(async () => {
     const { id } = useRoute().params
     const car_uri = `https://testapi.io/api/dartya/resource/cardata/${id}`
     const { data: car } = await useFetch(car_uri, { key: id })
-    const cars_uri = `https://testapi.io/api/dartya/resource/cardata`
-    const { data: cars } = await useFetch(cars_uri)
-    const present = cars.value.data.find(data => data.id == route.params.id)
-    if (!present) {
-        console.log("no data")
+    const cars = await useFetchCars()
+
+    console.log(cars)
+    const carDetailData = cars.value.data.find(data => data.id == route.params.id)
+    if (!carDetailData) {
         throw createError({
             statusCode: 404,
             statusMessage: `Car Not Found with id ${route.params.id}`,
             fatal: true
         })
     }
-
-
 })
 
 if (!carStore.carDetail) {

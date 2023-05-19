@@ -26,9 +26,13 @@ export const useCarStore = defineStore('car', {
     },
     actions: {
         // fetching data
-        getData() {
+        async getData() {
+            // const { data } = await fetch('/api/car')
+            // console.log(data)
+            // this.cars_info = data.value.data
             axios.get("https://testapi.io/api/dartya/resource/cardata", {
             }).then((response) => {
+                console.log(response.data.data)
                 this.cars_info = response.data.data
             })
         },
