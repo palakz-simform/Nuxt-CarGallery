@@ -5,6 +5,7 @@
                 <NuxtLink to="/" class="nav-heading">
                     <img src="/car-logo.png" alt="logo" />
                     <h1 class="logo-name">Car Gallery</h1>
+
                 </NuxtLink>
             </div>
             <div>

@@ -30,32 +30,28 @@ const carStore = useCarStore()
 const route = useRoute();
 
 useHead({
-    title: `Car Detail ${route.params.id}`
+    title: `Car Detail ${route.params.id}`,
+    meta: [
+        {
+            name: 'description',
+            content: 'This page contains the car description of car such as name, image, description and price.',
+        }
+    ]
 })
 definePageMeta({
-    middleware: ['auth'],
+    middleware: ['auth', 'info'],
 })
 import { onMounted } from 'vue'
 
 onMounted(async () => {
     carStore.getCarDetail(route.params.id)
-    carStore.getData()
-    const { id } = useRoute().params
-    const car_uri = `https://testapi.io/api/dartya/resource/cardata/${id}`
-    const { data: car } = await useFetch(car_uri, { key: id })
-    const cars = await useFetchCars()
-    console.log(cars)
-    const carDetailData = cars.value.data.find(data => data.id == route.params.id)
-    if (!carDetailData) {
-        throw createError({
-            statusCode: 404,
-            statusMessage: `Car Not Found with id ${route.params.id}`,
-            fatal: true
-        })
-    }
-    // const cars = carStore.cars_info
-    // console.log("aaa", cars)
+
+    // const carsss = carStore.cars_info
+    // console.log("aaa", carsss)
 })
+// const cars = carStore.cars_info
+// console.log("aaa", cars)
+
 
 
 </script>

@@ -1,6 +1,4 @@
 import { defineStore } from 'pinia'
-// import axios from '~/plugins/axios'
-import axios from 'axios'
 
 // useNuxtApp().$axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
 let headers = ""
@@ -36,6 +34,7 @@ export const useCarStore = defineStore('car', {
             // const data = await useFetchCars()
             // console.log(data.value.data)
             // this.cars_info = data.value.data
+
             useNuxtApp().$axios.get("https://testapi.io/api/dartya/resource/cardata",
                 { headers }).then((response) => {
                     this.cars_info = response.data.data

@@ -29,6 +29,15 @@
 <script setup>
 import { useUserStore } from '../stores/user'
 const userStore = useUserStore()
+useHead({
+    title: "Car Gallery | Login Page",
+    meta: [
+        {
+            name: 'description',
+            content: 'This page is the Login Page of Car Gallery.',
+        }
+    ]
+})
 
 const { email, error_msg_email, email_ref, checkEmail,
     error_msg_password, password, password_ref, checkPassword } = useValidation()

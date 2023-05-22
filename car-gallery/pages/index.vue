@@ -39,9 +39,6 @@ import gsap from 'gsap'
 import { onMounted } from "vue";
 const carStore = useCarStore()
 
-useHead({
-    title: 'Car Gallery',
-})
 
 definePageMeta({
     middleware: ['auth']
@@ -49,6 +46,13 @@ definePageMeta({
 useHead({
     script: [
         { src: "https://kit.fontawesome.com/0c8946a054.js" }
+    ],
+    title: 'Car Gallery',
+    meta: [
+        {
+            name: 'description',
+            content: 'This is the home page of car gallery',
+        }
     ]
 });
 onMounted(async () => {

@@ -139,8 +139,11 @@ async function submit() {
                         price: form.price
                     }
                 })
-                carStore.getData()
-                carStore.showModal = false
+                if (res.data.value) {
+                    carStore.getData()
+                    carStore.showModal = false
+                }
+
             }
             catch (err) {
                 console.log(err)

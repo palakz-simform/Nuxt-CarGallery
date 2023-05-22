@@ -74,8 +74,8 @@
                     <!-- DOB -->
                     <div class="row">
                         <label>Date of Birth:</label>
-                        <input type="date" v-model="dob" ref="dob_ref" :max="formattedDate" min="1923-12-31"
-                            @input="checkDOB" onkeydown="return false;">
+                        <input type="date" v-model="dob" ref="dob_ref" :max="$dateToday" min=" 1923-12-31" @input="checkDOB"
+                            onkeydown="return false;">
                         <div v-if="error_msg_dob" class="error">{{ error_msg_dob }}</div>
                     </div>
                     <div class="row row-button">
@@ -91,6 +91,15 @@
 import { useUserStore } from '../stores/user'
 const userStore = useUserStore()
 
+useHead({
+    title: "Car Gallery | Resgistration Page",
+    meta: [
+        {
+            name: 'description',
+            content: 'This page is the Registration Page of Car Gallery.',
+        }
+    ]
+})
 
 const { name, error_msg_name, name_ref, checkName,
     email, error_msg_email, email_ref, checkEmail,
@@ -100,8 +109,6 @@ const { name, error_msg_name, name_ref, checkName,
     gender, error_msg_gender, gender_ref, checkGender,
     age, error_msg_age, age_ref, checkAge,
     dob, error_msg_dob, dob_ref, checkDOB } = useValidation()
-
-const { formattedDate } = useFormattedDate()
 
 async function submit() {
     checkName(), checkEmail(), checkPassword(), checkConfirmPassword(), checkRole(), checkGender(), checkAge(), checkDOB()
@@ -120,8 +127,10 @@ async function submit() {
                 method: "post",
                 body: data
             })
-            alert(' User added Successfully: \n\nName: ' + data.name + '\nEmail: ' + data.email + '\nRole :' + data.role + '\nGender:' + data.gender + '\nAge:' + data.age + '\nDate of Birth:' + data.dob)
-            navigateTo('/login')
+            if (res.data.value) {
+                alert(' User added Successfully: \n\nName: ' + data.name + '\nEmail: ' + data.email + '\nRole :' + data.role + '\nGender:' + data.gender + '\nAge:' + data.age + '\nDate of Birth:' + data.dob)
+                navigateTo('/login')
+            }
         }
         catch (err) {
             console.log(err)

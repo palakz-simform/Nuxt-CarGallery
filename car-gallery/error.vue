@@ -6,6 +6,7 @@ const handleError = () => {
         redirect: "/",
     });
 };
+
 </script>
 
 
