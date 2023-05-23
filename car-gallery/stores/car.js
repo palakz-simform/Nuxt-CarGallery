@@ -41,7 +41,7 @@ export const useCarStore = defineStore('car', {
                 })
         },
         addCar() {
-            this.showModal = true
+            console.log("inside car store")
             this.title = 'Add Car'
             this.addForm = true
         },
@@ -114,7 +114,9 @@ export const useCarStore = defineStore('car', {
                 this.carDetail = response.data
                 console.log("in car")
             }).catch(() => {
-                console.log("Error occured")
+                // navigateTo('/error')
+                // const { error } = getContext(); // Get Nuxt context using getContext
+                // throw error(createError(400, 'Item cannot be empty.'));
             })
         },
 

@@ -4,15 +4,25 @@
             <div>
                 <NuxtLink to="/" class="nav-heading">
                     <img src="/car-logo.png" alt="logo" />
-                    <h1 class="logo-name">Car Gallery</h1>
-
+                    <h1 class="logo-name">{{ $t('app-name') }}</h1>
                 </NuxtLink>
             </div>
             <div>
-                <span v-if="userStore.isLoggedIn == true">
-                    <NuxtLink class="link" to="/">Home</NuxtLink>
-                    <a class="link" @click="userStore.logout">Logout</a>
+                <span v-if="userStore.isLoggedIn == true" style="display: flex;">
+                    <NuxtLink class="link" to="/">{{ $t('home') }}</NuxtLink>
+                    <a class="link" @click="userStore.logout">{{ $t('logout') }}</a>
+                    <div class="language">
+                        <form>
+                            <select id="locale-select" v-model="$i18n.locale">
+                                <option value="en">English</option>
+                                <option value="hi">हिंदी</option>
+                                <option value="fr">Français</option>
+                                <option value="ja">日本</option>
+                            </select>
+                        </form>
+                    </div>
                 </span>
+
                 <template v-else>
                     <NuxtLink class="link" to="/login">Login</NuxtLink>
                     <NuxtLink class="link link-register" to="/register">Register</NuxtLink>
@@ -76,7 +86,6 @@ body {
 }
 
 a.router-link-exact-active {
-    font-size: 22px;
     color: rgb(35, 177, 172);
 }
 
@@ -87,6 +96,20 @@ a.router-link-exact-active {
 
 a {
     text-decoration: none;
+}
+
+.language {
+    background-color: white;
+    height: 10px;
+}
+
+select {
+    margin: none;
+    width: 80px;
+    height: 30px;
+    background-color: black;
+    color: white;
+    border: 1px solid rgb(35, 177, 172);
 }
 
 @media (max-width: 750px) {

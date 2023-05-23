@@ -3,7 +3,7 @@
         <!-- Add Car Button -->
 
         <div class="add-car-button">
-            <button class="button" @click="carStore.addCar">Add Car</button>
+            <button class="button" @click="carStore.addCar">{{ $t('addCar') }}</button>
         </div>
 
         <!-- Style applied when Add/Edit form is displayed -->
@@ -27,7 +27,6 @@
                     </div>
                 </transition-group>
             </div>
-
         </div>
     </div>
 </template>

@@ -9,11 +9,13 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@intlify/unplugin-vue-i18n": "^0.10.0",
     "@invictus.codes/nuxt-vuetify": "^0.2.20",
     "@nuxt/types": "^2.16.3",
     "@types/node": "^18",
     "nuxt": "^3.4.3",
-    "nuxt-gsap-module": "^2.0.0"
+    "nuxt-gsap-module": "^2.0.0",
+    "vue-i18n": "^9.2.2"
   },
   "dependencies": {
     "@adamdehaven/vue-custom-tooltip": "^1.4.4",

@@ -25,10 +25,6 @@
 </template>
 
 <script setup>
-import { useCarStore } from '../../stores/car'
-const carStore = useCarStore()
-const route = useRoute();
-
 useHead({
     title: `Car Detail ${route.params.id}`,
     meta: [

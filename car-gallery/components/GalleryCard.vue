@@ -14,7 +14,7 @@
             <button class="car-edit-btn" @click="carStore.showEdit(getCarData())">
                 <i class="fa-solid fa-pen"></i>
             </button>
-            <NuxtLink :to="`details/${id}`"><button class="button-info">Info</button>
+            <NuxtLink :to="`details/${id}`"><button class="button-info">{{ $t('info') }}</button>
             </NuxtLink>
             <button class="car-delete-btn" @click="carStore.deleteCar(getCarData())">
                 <i class="fa-sharp fa-solid fa-trash"></i>
@@ -46,7 +46,6 @@ function getCarData() {
         price: props.price,
         title: "Edit Car",
     }
-
 }
 </script>
 
