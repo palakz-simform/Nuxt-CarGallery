@@ -9,12 +9,12 @@
                 <div class="form">
                     <div class="row">
                         <label for="email">Email:</label>
-                        <input type="email" v-model="email" id="email" @input="checkEmail" ref="email_ref">
-                        <div v-show="error_msg_email" ref="email_error" class="error">{{ error_msg_email }}</div>
+                        <input type="email" v-model="email" id="email" ref="email" @input="checkEmail">
+                        <div v-show="error_msg_email" class="error">{{ error_msg_email }}</div>
                     </div>
                     <div class="row row-password">
                         <label for="password">Password:</label>
-                        <input type="password" v-model="password" id="password" @input="checkPassword" ref="password_ref">
+                        <input type="password" v-model="password" id="password" ref="password" @input="checkPassword">
                         <div v-show="error_msg_password" class="error">{{ error_msg_password }}</div>
                     </div>
                     <div class="row row-button">
@@ -27,8 +27,6 @@
 </template>
 
 <script setup>
-import { useUserStore } from '../stores/user'
-const userStore = useUserStore()
 useHead({
     title: "Car Gallery | Login Page",
     meta: [
@@ -39,23 +37,12 @@ useHead({
     ]
 })
 
-const { email, error_msg_email, email_ref, checkEmail,
-    error_msg_password, password, password_ref, checkPassword } = useValidation()
-
-
-function login() {
-    checkEmail()
-    checkPassword()
-    if (checkEmail() && checkPassword()) {
-        const data = getUserData()
-        userStore.logInUser(data)
-    }
-}
-function getUserData() {
-    return {
-        email: email.value,
-        password: password.value
-    }
+</script>
+<script>
+import validation from '~/mixins/validation';
+export default {
+    name: 'Login',
+    mixins: [validation]
 }
 </script>
 

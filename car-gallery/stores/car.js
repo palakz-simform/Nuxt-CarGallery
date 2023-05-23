@@ -114,9 +114,7 @@ export const useCarStore = defineStore('car', {
                 this.carDetail = response.data
                 console.log("in car")
             }).catch(() => {
-                // navigateTo('/error')
-                // const { error } = getContext(); // Get Nuxt context using getContext
-                // throw error(createError(400, 'Item cannot be empty.'));
+                console.log("Error occured")
             })
         },
 

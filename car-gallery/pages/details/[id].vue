@@ -42,7 +42,6 @@ definePageMeta({
     middleware: ['auth', 'info'],
 })
 
-
 const carData = ref({})
 setTimeout(async () => {
     const car = await useFetchCar(route.params.id)

@@ -1,8 +1,8 @@
 <template>
     <div class="home">
         <!-- Add Car Button -->
-        <div class="add-car-button">
 
+        <div class="add-car-button">
             <button class="button" @click="carStore.addCar">Add Car</button>
         </div>
 
@@ -32,8 +32,6 @@
     </div>
 </template>
 
-
-
 <script setup>
 import { useCarStore } from "../stores/car";
 import gsap from 'gsap'
@@ -58,7 +56,6 @@ useHead({
 });
 onMounted(async () => {
     carStore.getData()
-
 })
 
 // const cars_info = ref([])

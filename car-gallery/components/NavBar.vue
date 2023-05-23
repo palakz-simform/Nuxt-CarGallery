@@ -23,10 +23,8 @@
 </template>
 
 <script setup>
-import { onBeforeMount } from 'vue'
 import { useUserStore } from "../stores/user";
 const userStore = useUserStore()
-
 </script>
 
 <style >
