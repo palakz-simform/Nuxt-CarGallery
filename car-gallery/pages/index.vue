@@ -2,6 +2,7 @@
     <div class="home">
         <!-- Add Car Button -->
         <div class="add-car-button">
+
             <button class="button" @click="carStore.addCar">Add Car</button>
         </div>
 

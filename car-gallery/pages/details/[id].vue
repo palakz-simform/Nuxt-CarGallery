@@ -5,19 +5,19 @@
         </div>
         <div class="car-detail">
             <div class="image">
-                <img :src="carStore.carDetailInfo.image">
+                <img :src="carData.image">
             </div>
             <div class="info">
                 <div class="title">
-                    <h1>{{ carStore.carDetailInfo.name }}</h1>
+                    <h1>{{ carData.name }}</h1>
                 </div>
                 <div class="description">
                     <h3>Description of Car : </h3>
-                    <p>{{ carStore.carDetailInfo.details }}</p>
+                    <p>{{ carData.details }}</p>
                 </div>
                 <div class="price">
                     <h3>Price of Car : </h3>
-                    <p>Rs. {{ carStore.carDetailInfo.price }}</p>
+                    <p>Rs. {{ carData.price }}</p>
                 </div>
             </div>
         </div>
@@ -41,19 +41,13 @@ useHead({
 definePageMeta({
     middleware: ['auth', 'info'],
 })
-import { onMounted } from 'vue'
 
-onMounted(async () => {
-    carStore.getCarDetail(route.params.id)
 
-    // const carsss = carStore.cars_info
-    // console.log("aaa", carsss)
+const carData = ref({})
+setTimeout(async () => {
+    const car = await useFetchCar(route.params.id)
+    carData.value = car.value
 })
-// const cars = carStore.cars_info
-// console.log("aaa", cars)
-
-
-
 </script>
 
 <style scoped>
