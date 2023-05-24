@@ -1,8 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { NuxtConfig } from '@nuxt/types'
-import { resolve, dirname } from 'node:path'
-import { fileURLToPath } from 'url'
-import VueI18nVitePlugin from '@intlify/unplugin-vue-i18n/vite'
+
 const config: NuxtConfig = {
     // Other Nuxt.js configuration...
     app:{
@@ -11,16 +9,16 @@ const config: NuxtConfig = {
     modules: [
              '@pinia/nuxt',
       ],
-      vite: {
-        plugins: [
-          VueI18nVitePlugin({
-            include: [
-              resolve(dirname(fileURLToPath(import.meta.url)), './locales/*.json')
-            ]
-          })
-        ]
-      }
-    
+    // plugins: [
+    //   // Other plugins...
+    //   // { src: '~/plugins/gsap.js', ssr: false },
+    //   // { src:   '~/plugins/axios-plugin.js',},
+    //   // { src:  '~/plugins/globalMixin.js'}
+    //   // { src: '~/plugins/globalMixins.js', mode: 'client' }
+    //   // './plugins/v-tooltip.js'
+    //    ],
+
+    // Other Nuxt.js configuration...
   }
   
   export default config

@@ -46,6 +46,7 @@ function getCarData() {
         price: props.price,
         title: "Edit Car",
     }
+
 }
 </script>
 

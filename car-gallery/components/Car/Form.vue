@@ -128,7 +128,7 @@ async function submit() {
     if (checkName() && checkImage() && checkDescription() && checkPrice()) {
         //  Execute if Add Car
         if (carStore.addForm == true) {
-            alertData()
+
             try {
                 const res = await useFetch("/api/car/add", {
                     method: "post",
@@ -140,8 +140,13 @@ async function submit() {
                     }
                 })
                 if (res.data.value) {
-                    carStore.getData()
                     carStore.showModal = false
+                    carStore.getData()
+                    carStore.alertData(form)
+
+                }
+                else {
+                    alert("Error adding car data!! PLease try again")
                 }
 
             }
@@ -153,7 +158,6 @@ async function submit() {
         }
         // Execute if Edit Car
         else if (carStore.editForm == true) {
-            alertData()
             carStore.editCarData(form)
         }
     }
@@ -178,10 +182,6 @@ function clearError(error) {
     error.value = "";
 }
 
-// function to alert data after submitting the form
-function alertData() {
-    alert((carStore.addForm == true ? 'Created' : 'Edited') + ' data: \n\nName: ' + form.name + '\n\nImage:' + form.image + '\n\nDescription :' + form.description + '\n\nPrice Rs.:' + form.price)
-}
 function showError(error, msg, ref) {
     error.value = msg;
     ref.value.focus()

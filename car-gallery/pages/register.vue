@@ -96,9 +96,7 @@ useHead({
         }
     ]
 })
-
 </script>
-
 <script>
 import validation from '~/mixins/validation';
 export default {
@@ -135,7 +133,6 @@ export default {
             }
         }
     }
-
 }
 </script>
 

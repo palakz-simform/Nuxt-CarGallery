@@ -18,6 +18,7 @@
                                 <option value="hi">हिंदी</option>
                                 <option value="fr">Français</option>
                                 <option value="ja">日本</option>
+
                             </select>
                         </form>
                     </div>
@@ -27,7 +28,9 @@
                     <NuxtLink class="link" to="/login">Login</NuxtLink>
                     <NuxtLink class="link link-register" to="/register">Register</NuxtLink>
                 </template>
+
             </div>
+
         </div>
     </div>
 </template>

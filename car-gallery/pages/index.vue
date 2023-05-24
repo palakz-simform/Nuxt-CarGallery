@@ -27,6 +27,7 @@
                     </div>
                 </transition-group>
             </div>
+
         </div>
     </div>
 </template>
@@ -36,6 +37,7 @@ import { useCarStore } from "../stores/car";
 import gsap from 'gsap'
 import { onMounted } from "vue";
 const carStore = useCarStore()
+
 
 definePageMeta({
     middleware: ['auth']
@@ -83,7 +85,6 @@ function leave(el, done) {
 }
 
 </script>
-
 <style scoped>
 .car-card-enter-from {
     opacity: 0;
