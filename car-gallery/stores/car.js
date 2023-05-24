@@ -1,6 +1,9 @@
 import { defineStore } from 'pinia'
-
-// useNuxtApp().$axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
+let axios = ""
+setTimeout(() => {
+    axios = useNuxtApp().$axios
+    console.log(axios)
+})
 let headers = ""
 if (process.client) {
     headers = {
@@ -31,17 +34,13 @@ export const useCarStore = defineStore('car', {
     actions: {
         // fetching data
         async getData() {
-            // const data = await useFetchCars()
-            // console.log(data.value.data)
-            // this.cars_info = data.value.data
-
-            useNuxtApp().$axios.get("https://testapi.io/api/dartya/resource/cardata",
+            axios.get("https://testapi.io/api/dartya/resource/cardata",
                 { headers }).then((response) => {
                     this.cars_info = response.data.data
                 })
         },
         addCar() {
-            console.log("inside car store")
+            this.showModal = true
             this.title = 'Add Car'
             this.addForm = true
         },
@@ -114,9 +113,7 @@ export const useCarStore = defineStore('car', {
                 this.carDetail = response.data
                 console.log("in car")
             }).catch(() => {
-                // navigateTo('/error')
-                // const { error } = getContext(); // Get Nuxt context using getContext
-                // throw error(createError(400, 'Item cannot be empty.'));
+                console.log("Error occured!")
             })
         },
 

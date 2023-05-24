@@ -103,7 +103,7 @@ a {
     height: 10px;
 }
 
-select {
+.language select {
     margin: none;
     width: 80px;
     height: 30px;

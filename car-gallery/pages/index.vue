@@ -37,7 +37,6 @@ import gsap from 'gsap'
 import { onMounted } from "vue";
 const carStore = useCarStore()
 
-
 definePageMeta({
     middleware: ['auth']
 })
@@ -56,10 +55,6 @@ useHead({
 onMounted(async () => {
     carStore.getData()
 })
-
-// const cars_info = ref([])
-// const data = await useFetchCars()
-// cars_info.value = data.value.data
 
 function beforeEnter(el) {
     el.style.opacity = 0;
@@ -88,14 +83,7 @@ function leave(el, done) {
 }
 
 </script>
-<!-- <script>
-export default {
-    created() {
-        this.aaa()
-    },
 
-}
-</script > -->
 <style scoped>
 .car-card-enter-from {
     opacity: 0;

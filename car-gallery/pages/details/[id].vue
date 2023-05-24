@@ -25,6 +25,7 @@
 </template>
 
 <script setup>
+const route = useRoute()
 useHead({
     title: `Car Detail ${route.params.id}`,
     meta: [

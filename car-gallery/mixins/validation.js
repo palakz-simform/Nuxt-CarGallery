@@ -38,21 +38,6 @@ export default {
                 this.logInUser(data)
             }
         },
-        submit() {
-            this.checkName(), this.checkEmail(), this.checkPassword(), this.checkConfirmPassword(), this.checkRole(), this.checkGender(), this.checkAge(), this.checkDOB()
-            if (this.checkName() && this.checkEmail() && this.checkPassword() && this.checkConfirmPassword() && this.checkRole() && this.checkGender() && this.checkAge() && this.checkDOB()) {
-                const data = {
-                    name: this.name,
-                    email: this.email,
-                    role: this.role,
-                    password: this.password,
-                    age: this.age,
-                    dob: this.dob,
-                    gender: this.gender
-                }
-                this.registerUser(data)
-            }
-        },
         checkName() {
             if (this.name === "") {
                 const msg = "**Please enter name**"

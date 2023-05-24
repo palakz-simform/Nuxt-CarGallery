@@ -98,11 +98,43 @@ useHead({
 })
 
 </script>
+
 <script>
 import validation from '~/mixins/validation';
 export default {
     name: 'Register',
-    mixins: [validation]
+    mixins: [validation],
+    methods: {
+        async submit() {
+            this.checkName(), this.checkEmail(), this.checkPassword(), this.checkConfirmPassword(), this.checkRole(), this.checkGender(), this.checkAge(), this.checkDOB()
+            if (this.checkName() && this.checkEmail() && this.checkPassword() && this.checkConfirmPassword() && this.checkRole() && this.checkGender() && this.checkAge() && this.checkDOB()) {
+                const data = {
+                    name: this.name,
+                    email: this.email,
+                    role: this.role,
+                    password: this.password,
+                    age: this.age,
+                    dob: this.dob,
+                    gender: this.gender
+                }
+                try {
+                    const res = await useFetch("/api/user/add", {
+                        method: "post",
+                        body: data
+                    })
+                    if (res.data.value) {
+                        alert(' User added Successfully: \n\nName: ' + data.name + '\nEmail: ' + data.email + '\nRole :' + data.role + '\nGender:' + data.gender + '\nAge:' + data.age + '\nDate of Birth:' + data.dob)
+                        navigateTo('/login')
+                    }
+                }
+                catch (err) {
+                    console.log(err)
+                }
+                // With using store
+                // userStore.registerUser(data)
+            }
+        }
+    }
 
 }
 </script>

@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import axios from 'axios'
 export const useUserStore = defineStore('user', {
     state: () => ({
         name: '',
@@ -27,7 +26,7 @@ export const useUserStore = defineStore('user', {
     actions: {
         async logInUser(user) {
             try {
-                const res = await axios.get('https://testapi.io/api/dartya/resource/users')
+                const res = await useNuxtApp().$axios.get('https://testapi.io/api/dartya/resource/users')
                 const data = await res.data.data
                 if (res.status == 200) {
                     const userData = data.find(udata => udata.email == user.email)
@@ -45,7 +44,7 @@ export const useUserStore = defineStore('user', {
                             this.gender = userData.gender
                         this.login = "true"
                         try {
-                            const res = await axios.post('https://reqres.in/api/login', {
+                            const res = await useNuxtApp().$axios.post('https://reqres.in/api/login', {
                                 email: "eve.holt@reqres.in",
                                 password: "cityslicka"
                             })
@@ -74,7 +73,7 @@ export const useUserStore = defineStore('user', {
         },
         async registerUser(data) {
             try {
-                const res = await axios.post('https://testapi.io/api/dartya/resource/users', {
+                const res = await useNuxtApp().$axios.post('https://testapi.io/api/dartya/resource/users', {
                     name: data.name,
                     email: data.email,
                     role: data.role,
