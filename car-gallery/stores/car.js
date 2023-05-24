@@ -1,9 +1,5 @@
 import { defineStore } from 'pinia'
-let axios = ""
-setTimeout(() => {
-    axios = useNuxtApp().$axios
-    console.log(axios)
-})
+
 let headers = ""
 if (process.client) {
     headers = {
@@ -34,7 +30,7 @@ export const useCarStore = defineStore('car', {
     actions: {
         // fetching data
         async getData() {
-            axios.get("https://testapi.io/api/dartya/resource/cardata",
+            useNuxtApp().$axios.get("https://testapi.io/api/dartya/resource/cardata",
                 { headers }).then((response) => {
                     this.cars_info = response.data.data
                 })
