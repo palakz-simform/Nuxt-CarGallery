@@ -1,30 +1,36 @@
 <template>
     <div>
-        <div class="back">
-            <button @click.prevent="navigateTo('/')"><i class="fa-solid fa-arrow-left-long"></i>Back</button>
-        </div>
-        <div class="car-detail">
-            <div class="image">
-                <img :src="carData.image">
+        <ClientOnly>
+            <template #fallback>
+                <div class="loader"></div>
+            </template>
+            <div class="back">
+                <button @click.prevent="navigateTo('/')"><i class="fa-solid fa-arrow-left-long"></i>Back</button>
             </div>
-            <div class="info">
-                <div class="title">
-                    <h1>{{ carData.name }}</h1>
+            <div class="car-detail">
+                <div class="image">
+                    <img :src="carData.image">
                 </div>
-                <div class="description">
-                    <h3>Description of Car : </h3>
-                    <p>{{ carData.details }}</p>
-                </div>
-                <div class="price">
-                    <h3>Price of Car : </h3>
-                    <p>Rs. {{ carData.price }}</p>
+                <div class="info">
+                    <div class="title">
+                        <h1>{{ carData.name }}</h1>
+                    </div>
+                    <div class="description">
+                        <h3>Description of Car : </h3>
+                        <p>{{ carData.details }}</p>
+                    </div>
+                    <div class="price">
+                        <h3>Price of Car : </h3>
+                        <p>Rs. {{ carData.price }}</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        </ClientOnly>
     </div>
 </template>
 
 <script setup>
+import { onMounted } from "vue";
 const route = useRoute();
 
 useHead({
@@ -41,13 +47,48 @@ definePageMeta({
 })
 
 const carData = ref({})
-setTimeout(async () => {
-    const car = await useFetchCar(route.params.id)
-    carData.value = car.value
-})
+
+const car = await useFetchCar(route.params.id)
+carData.value = car.value
+
+
 </script>
 
 <style scoped>
+.loader {
+    margin: 0 auto;
+    margin-top: 200px;
+    border: 8px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 8px solid rgb(35, 177, 172);
+    width: 60px;
+    height: 60px;
+    -webkit-animation: spin 2s linear infinite;
+    /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 button {
     margin-top: 30px;
     margin-left: 30px;
@@ -140,6 +181,7 @@ img {
     font-size: 18px;
     color: white;
 }
+
 
 @media (max-width:1500px) {
 

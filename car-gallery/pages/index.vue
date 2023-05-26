@@ -1,34 +1,39 @@
 <template>
     <div class="home">
-        <!-- Add Car Button -->
 
-        <div class="add-car-button">
-            <button class="button" @click="carStore.addCar">{{ $t('addCar') }}</button>
-        </div>
-
-        <!-- Style applied when Add/Edit form is displayed -->
-        <transition name="fade">
-            <div class="modal-overlay" v-if="carStore.showModal"></div>
-        </transition>
-
-        <!-- Add/Edit Car Component -->
-        <transition name="car-form">
-            <CarForm v-if="carStore.showModal"></CarForm>
-        </transition>
-
-        <!-- gallery-card.vue component -->
-        <div class="car-content">
-            <div class="car-card">
-                <transition-group class="car-card" name="car-card" @before-enter="beforeEnter" @enter="enter"
-                    @before-leave="beforeLeave" @leave="leave" appear>
-                    <div v-for="(item, index) in carStore.carCardInfo" :key="item.id" :data-index="index">
-                        <GalleryCard :id="item.id" :name="item.name" :image="item.image" :description="item.details"
-                            :price="item.price" />
-                    </div>
-                </transition-group>
+        <ClientOnly>
+            <template #fallback>
+                <div class="loader"></div>
+            </template>
+            <!-- Add Car Button -->
+            <div class="add-car-button">
+                <button class="button" @click="carStore.addCar">{{ $t('addCar') }}</button>
             </div>
 
-        </div>
+            <!-- Style applied when Add/Edit form is displayed -->
+            <transition name="fade">
+                <div class="modal-overlay" v-if="carStore.showModal"></div>
+            </transition>
+
+            <!-- Add/Edit Car Component -->
+            <transition name="car-form">
+                <CarForm v-if="carStore.showModal"></CarForm>
+            </transition>
+
+            <!-- gallery-card.vue component -->
+            <div class="car-content">
+                <div class="car-card">
+                    <transition-group class="car-card" name="car-card" @before-enter="beforeEnter" @enter="enter"
+                        @before-leave="beforeLeave" @leave="leave" appear>
+                        <div v-for="(item, index) in carStore.carCardInfo" :key="item.id" :data-index="index">
+                            <GalleryCard :id="item.id" :name="item.name" :image="item.image" :description="item.details"
+                                :price="item.price" />
+                        </div>
+                    </transition-group>
+                </div>
+
+            </div>
+        </ClientOnly>
     </div>
 </template>
 
@@ -37,7 +42,6 @@ import { useCarStore } from "../stores/car";
 import gsap from 'gsap'
 import { onMounted } from "vue";
 const carStore = useCarStore()
-
 
 definePageMeta({
     middleware: ['auth']
@@ -56,6 +60,7 @@ useHead({
 });
 onMounted(async () => {
     carStore.getData()
+
 })
 
 function beforeEnter(el) {
@@ -86,6 +91,40 @@ function leave(el, done) {
 
 </script>
 <style scoped>
+.loader {
+    margin: 0 auto;
+    margin-top: 200px;
+    border: 8px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 8px solid rgb(35, 177, 172);
+    width: 60px;
+    height: 60px;
+    -webkit-animation: spin 2s linear infinite;
+    /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 .car-card-enter-from {
     opacity: 0;
     transform: translateY(100px)

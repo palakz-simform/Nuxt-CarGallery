@@ -8,15 +8,21 @@ export const useUserStore = defineStore('user', {
         age: '',
         dob: '',
         gender: '',
-        login: null
+        login: null,
+        loading: false
     }),
     getters: {
         isLoggedIn(state) {
             if (state.login === null) {
                 // If the login state is not yet initialized, check the localStorage
                 if (process.client) {
-                    const loggedIn = localStorage.getItem('loggedIn');
-                    return loggedIn === 'true';
+                    const login = localStorage.getItem('loggedIn');
+                    if (login === 'true') {
+                        return true
+                    }
+                    else {
+                        return false
+                    }
                 }
             }
             // Return the current login state
