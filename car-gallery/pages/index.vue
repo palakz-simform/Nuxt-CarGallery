@@ -1,6 +1,5 @@
 <template>
     <div class="home">
-
         <ClientOnly>
             <template #fallback>
                 <div class="loader"></div>
@@ -31,7 +30,6 @@
                         </div>
                     </transition-group>
                 </div>
-
             </div>
         </ClientOnly>
     </div>
